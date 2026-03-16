@@ -42,13 +42,27 @@
 
   const initConfigBindings = () => {
     if (!window.CONFIG) return;
-    const { serverName, serverIP, version, discord, copyright } = window.CONFIG;
+    const { serverName, serverIP, version, discord, copyright, logoImage, favicon } =
+      window.CONFIG;
     setTextAll("[data-server-name]", serverName);
     setTextAll("[data-server-ip]", serverIP);
     setTextAll("[data-server-version]", version);
     setHrefAll("[data-discord-url]", discord);
     if (copyright) {
       setTextAll("[data-copyright]", copyright);
+    }
+    if (logoImage) {
+      qsa("[data-logo-image]").forEach((img) => {
+        img.src = logoImage;
+        img.alt = `${serverName} logo`;
+        img.classList.add("is-visible");
+      });
+    }
+    if (favicon) {
+      const icon = qs("[data-favicon]");
+      if (icon) {
+        icon.setAttribute("href", favicon);
+      }
     }
   };
 
