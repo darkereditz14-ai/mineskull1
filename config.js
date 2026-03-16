@@ -1,6 +1,8 @@
 // Central configuration for all editable site content.
 const CONFIG = {
   serverName: "MineSkull",
+  logoImage: "assets/logo.png",
+  favicon: "assets/favicon.ico",
   serverIP: "play.mineskull.fun",
   version: "1.20+",
   discord: "https://discord.gg/PM5Wj3sSNY",
