@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MineSkull | Home</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="home">
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="index.html" data-server-name>MineSkull</a>
+        <div class="nav-links">
+          <a class="nav-link" data-page="home" href="index.html">Home</a>
+          <a class="nav-link" data-page="features" href="features.html">Features</a>
+          <a class="nav-link" data-page="team" href="team.html">Team</a>
+          <a class="nav-link" data-page="join" href="join.html">Join</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page-content">
+      <header class="hero">
+        <div class="container hero-content">
+          <p class="eyebrow">Minecraft Survival Network</p>
+          <h1 class="hero-title">
+            Welcome to <span class="accent" data-server-name>MineSkull</span>
+          </h1>
+          <p class="hero-subtitle">
+            A premium Minecraft world packed with custom gameplay, powerful performance, and a
+            community that always has your back.
+          </p>
+          <div class="ip-bar">
+            <div class="ip-pill">
+              <span class="label">Server IP</span>
+              <span class="ip-text" data-server-ip>play.mineskull.fun</span>
+            </div>
+            <button class="btn btn-outline" data-copy-ip>Copy IP</button>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="join.html">Join Now</a>
+            <a class="btn btn-ghost" data-discord-url href="#">Discord</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Server Status</h2>
+            <p class="section-subtitle">
+              Live status, player counts, and version updates straight from the server.
+            </p>
+          </div>
+          <div id="server-status" class="status-card reveal">
+            <div class="status-left">
+              <span id="status-dot" class="status-dot"></span>
+              <div>
+                <p class="status-label">Status</p>
+                <h3 id="status-text" class="status-text">Checking...</h3>
+                <div class="status-badges">
+                  <span id="status-online" class="status-badge">Online</span>
+                  <span id="status-offline" class="status-badge">Offline</span>
+                </div>
+              </div>
+            </div>
+            <div class="status-right">
+              <div class="status-item">
+                <span class="status-label">Players</span>
+                <span id="status-players" class="status-value">--</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Version</span>
+              <span id="status-version" class="status-value">--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Feature Highlights</h2>
+            <p class="section-subtitle">
+              Every detail is tuned for immersive gameplay, smooth performance, and a thriving
+              community.
+            </p>
+          </div>
+          <div id="features-grid" class="grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>
+          <strong data-server-name>MineSkull</strong>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="features.html">Features</a>
+          <a href="team.html">Team</a>
+          <a href="join.html">Join</a>
+        </div>
+        <div class="footer-links">
+          <a data-discord-url href="#">Discord</a>
+        </div>
+        <div class="footer-copy" data-copyright>Copyright 2026 MineSkull. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
