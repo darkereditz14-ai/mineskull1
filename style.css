@@ -265,7 +265,7 @@ a {
 
 .hero-content {
   display: grid;
-  gap: 24px;
+  gap: 14px;
   max-width: 720px;
 }
 
@@ -290,6 +290,7 @@ a {
 .hero-subtitle {
   color: var(--gray);
   font-size: 16px;
+  margin-top: 4px;
 }
 
 .ip-bar {
