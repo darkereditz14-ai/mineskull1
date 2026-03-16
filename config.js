@@ -4,7 +4,7 @@ const CONFIG = {
   logoImage: "assets/logo.png",
   favicon: "assets/favicon.ico",
   serverIP: "play.mineskull.fun",
-  version: "1.20+",
+  version: "1.21+",
   discord: "https://discord.gg/PM5Wj3sSNY",
   copyright: "Copyright 2026 MineSkull. All rights reserved.",
 
@@ -18,9 +18,9 @@ const CONFIG = {
 
   // Edit or add staff profiles here.
   team: [
-    { name: "OwnerName", role: "Owner" },
-    { name: "AdminName", role: "Administrator" },
-    { name: "BuilderName", role: "Lead Builder" },
-    { name: "ModName", role: "Moderator" }
+    { name: "MananWarrior", role: "Founder" },
+    { name: "TriggyBol", role: "CO-Founder" },
+    { name: 'Daksh_XD", role: "CO-Founder" },
+    { name: "JustWeby", role: "Developer" }
   ]
 };
