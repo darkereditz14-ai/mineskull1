@@ -66,6 +66,19 @@
     }
   };
 
+  const initDiscordLinks = () => {
+    if (!window.CONFIG?.discord) return;
+    qsa("[data-discord-url]").forEach((link) => {
+      link.setAttribute("href", window.CONFIG.discord);
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.open(window.CONFIG.discord, "_blank", "noopener");
+      });
+    });
+  };
+
   const buildFeatures = () => {
     const grid = qs("#features-grid");
     if (!grid || !window.CONFIG) return;
@@ -311,6 +324,7 @@
     initNavActive();
     updateTitle();
     initConfigBindings();
+    initDiscordLinks();
     buildFeatures();
     buildTeam();
     initCopyButtons();
