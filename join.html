@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MineSkull | Join</title>
-    <link rel="icon" href="favicon.ico" data-favicon />
+    <link rel="icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-page="join">
+  <body data-page="join" data-server-ip="play.mineskull.fun">
     <nav class="nav">
       <div class="container nav-inner">
         <a class="nav-logo" href="index.html">
-          <img class="logo-img" data-logo-image alt="MineSkull logo" />
+          <img class="logo-img" src="assets/logo.png" alt="MineSkull logo" onerror="this.style.display='none'" />
           <span class="logo-text" data-server-name>MineSkull</span>
         </a>
         <div class="nav-links">
@@ -40,6 +40,11 @@
             <div class="flip-card" data-copy-ip tabindex="0" role="button" aria-label="Copy IP">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
+                  <div class="skull-field" aria-hidden="true">
+                    <span class="skull s1"></span>
+                    <span class="skull s2"></span>
+                    <span class="skull s3"></span>
+                  </div>
                   <h3 class="join-copy-ip" data-server-ip>play.mineskull.fun</h3>
                   <div class="ip-meta">
                     <span class="ip-chip">Survival</span>
@@ -52,7 +57,7 @@
                   <ol class="flip-steps">
                     <li>
                       <span class="step-badge">1</span>
-                      <p>Launch Minecraft version <strong data-server-version>1.20+</strong>.</p>
+                      <p>Launch Minecraft version <strong>1.20+</strong>.</p>
                     </li>
                     <li>
                       <span class="step-badge">2</span>
@@ -73,6 +78,10 @@
                   </ol>
                 </div>
               </div>
+            </div>
+            <div class="click-to-copy">
+              <p class="click-label">Click to copy</p>
+              <p class="click-sub">Hover over the main card to flip for instructions.</p>
             </div>
             <div class="copy-fallback">
               <p class="copy-fallback-label">Copy failed. Press Ctrl+C</p>
@@ -102,13 +111,22 @@
           <a href="join.html">Join</a>
         </div>
         <div class="footer-links">
-          <a data-discord-url href="#">Discord</a>
+          <a class="discord-card" href="https://discord.gg/PM5Wj3sSNY" target="_blank" rel="noopener noreferrer">
+            <span class="discord-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" aria-label="Discord">
+                <path
+                  fill="currentColor"
+                  d="M20.3 4.2a19.8 19.8 0 0 0-4.9-1.5l-.2.3c1.8.6 2.6 1 3.8 1.8a15.8 15.8 0 0 0-9.9 0c1.2-.8 2-1.2 3.8-1.8l-.2-.3a19.8 19.8 0 0 0-4.9 1.5C3.6 7.1 2.3 9.9 2.7 12.7c2.1 3 5.1 4.6 8.9 4.7l.6-.8c-1.2-.4-2.4-1-3.4-1.8l.8-.6c2 1.2 4.2 1.6 6.4 1.6 2.2 0 4.4-.4 6.4-1.6l.8.6c-1 .8-2.2 1.4-3.4 1.8l.6.8c3.8-.1 6.8-1.7 8.9-4.7.5-2.8-.9-5.6-3.4-8.5ZM9.6 13.3c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4Zm4.8 0c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4Z"
+                />
+              </svg>
+            </span>
+            <span>Discord</span>
+          </a>
         </div>
         <div class="footer-copy" data-copyright>Copyright 2026 MineSkull. All rights reserved.</div>
       </div>
     </footer>
 
-    <script src="config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
