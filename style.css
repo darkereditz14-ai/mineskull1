@@ -120,6 +120,8 @@ body::before {
     radial-gradient(circle at 10% 10%, rgba(247, 208, 0, 0.15), transparent 45%),
     radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.08), transparent 40%),
     radial-gradient(circle at 80% 90%, rgba(247, 208, 0, 0.12), transparent 45%);
+  background-size: 200% 200%;
+  animation: ambientShift 12s ease infinite;
   pointer-events: none;
   z-index: -2;
 }
@@ -642,6 +644,30 @@ a {
   color: var(--white);
 }
 
+.ip-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ip-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(247, 208, 0, 0.5);
+  background: rgba(247, 208, 0, 0.12);
+  color: var(--yellow);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ip-hint {
+  font-size: 12px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
 .copy-fallback {
   width: 100%;
   max-width: 440px;
@@ -710,13 +736,23 @@ a {
   gap: 16px;
   padding: 32px;
   border-radius: 24px;
-  background: rgba(0, 0, 0, 0.85);
+  background: radial-gradient(circle at top left, rgba(247, 208, 0, 0.12), transparent 45%),
+    rgba(0, 0, 0, 0.88);
   border: 1px dashed rgba(247, 208, 0, 0.6);
   backface-visibility: hidden;
 }
 
 .flip-card-front {
   justify-items: start;
+}
+
+.flip-card-front::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(247, 208, 0, 0.25);
+  pointer-events: none;
 }
 
 .flip-card-back {
@@ -860,6 +896,18 @@ a {
 }
 
 @keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes ambientShift {
   0% {
     background-position: 0% 50%;
   }
