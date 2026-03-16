@@ -95,9 +95,11 @@
       const ip = window.CONFIG?.serverIP || "";
       if (!ip) return;
 
+      let copied = false;
       try {
         if (navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(ip);
+          copied = true;
         } else {
           throw new Error("Clipboard API unavailable");
         }
@@ -106,7 +108,7 @@
         input.value = ip;
         document.body.appendChild(input);
         input.select();
-        document.execCommand("copy");
+        copied = document.execCommand("copy");
         document.body.removeChild(input);
       }
 
@@ -114,14 +116,14 @@
         trigger.tagName === "BUTTON" ? trigger : trigger.querySelector("button");
       if (labelButton) {
         const originalText = labelButton.textContent;
-        labelButton.textContent = "Copied!";
+        labelButton.textContent = copied ? "Copied!" : "Copy Failed";
         labelButton.classList.add("copied");
         setTimeout(() => {
           labelButton.textContent = originalText;
           labelButton.classList.remove("copied");
         }, 1500);
       }
-      showToast("Copied to clipboard");
+      showToast(copied ? "Copied to clipboard" : "Copy failed. Press Ctrl+C");
     });
   };
 
