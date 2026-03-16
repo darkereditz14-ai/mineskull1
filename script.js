@@ -88,31 +88,40 @@
   };
 
   const initCopyButtons = () => {
-    qsa("[data-copy-ip]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const ip = window.CONFIG?.serverIP || "";
-        if (!ip) return;
+    document.addEventListener("click", async (event) => {
+      const trigger = event.target.closest("[data-copy-ip]");
+      if (!trigger) return;
 
-        try {
+      const ip = window.CONFIG?.serverIP || "";
+      if (!ip) return;
+
+      try {
+        if (navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(ip);
-        } catch (error) {
-          const input = document.createElement("input");
-          input.value = ip;
-          document.body.appendChild(input);
-          input.select();
-          document.execCommand("copy");
-          document.body.removeChild(input);
+        } else {
+          throw new Error("Clipboard API unavailable");
         }
+      } catch (error) {
+        const input = document.createElement("input");
+        input.value = ip;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+      }
 
-        const originalText = button.textContent;
-        button.textContent = "Copied!";
-        button.classList.add("copied");
+      const labelButton =
+        trigger.tagName === "BUTTON" ? trigger : trigger.querySelector("button");
+      if (labelButton) {
+        const originalText = labelButton.textContent;
+        labelButton.textContent = "Copied!";
+        labelButton.classList.add("copied");
         setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove("copied");
+          labelButton.textContent = originalText;
+          labelButton.classList.remove("copied");
         }, 1500);
-        showToast("Copied to clipboard");
-      });
+      }
+      showToast("Copied to clipboard");
     });
   };
 
