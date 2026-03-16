@@ -744,6 +744,8 @@ a {
 
 .flip-card-front {
   justify-items: start;
+  position: relative;
+  overflow: hidden;
 }
 
 .flip-card-front::after {
@@ -753,6 +755,49 @@ a {
   border-radius: 20px;
   border: 1px solid rgba(247, 208, 0, 0.25);
   pointer-events: none;
+}
+
+.skull-field {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.skull {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path fill='%23f7d000' d='M32 4c-13.3 0-24 10.7-24 24 0 9.4 5.4 17.5 13.3 21.6V56c0 2.2 1.8 4 4 4h3v-8h8v8h3c2.2 0 4-1.8 4-4v-6.4C50.6 45.5 56 37.4 56 28 56 14.7 45.3 4 32 4z'/><circle cx='22' cy='28' r='4' fill='%230a0a0a'/><circle cx='42' cy='28' r='4' fill='%230a0a0a'/><rect x='28' y='36' width='8' height='6' rx='2' fill='%230a0a0a'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+  filter: drop-shadow(0 0 12px rgba(247, 208, 0, 0.3));
+  animation: skullBounce 6s ease-in-out infinite alternate;
+}
+
+.skull.s1 {
+  transform: translate(-80px, -20px);
+  animation-duration: 7s;
+}
+
+.skull.s2 {
+  transform: translate(60px, -10px);
+  animation-duration: 6s;
+  animation-delay: 0.4s;
+}
+
+.skull.s3 {
+  transform: translate(-10px, 50px);
+  animation-duration: 8s;
+  animation-delay: 0.8s;
+}
+
+.flip-card-front > *:not(.skull-field) {
+  position: relative;
+  z-index: 1;
 }
 
 .flip-card-back {
@@ -916,6 +961,18 @@ a {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes skullBounce {
+  0% {
+    transform: translate(-90px, -30px);
+  }
+  50% {
+    transform: translate(30px, 20px);
+  }
+  100% {
+    transform: translate(90px, -10px);
   }
 }
 
