@@ -886,6 +886,7 @@ a {
   border: 1px solid rgba(88, 101, 242, 0.5);
   color: #d9ddff;
   font-weight: 600;
+  line-height: 1;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -896,15 +897,18 @@ a {
 }
 
 .discord-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: inline-flex;
   color: #d9ddff;
+  align-items: center;
+  justify-content: center;
 }
 
 .discord-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .reveal {
