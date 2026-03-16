@@ -669,6 +669,31 @@ a {
   letter-spacing: 2px;
 }
 
+.click-to-copy {
+  align-self: stretch;
+  border-radius: 18px;
+  border: 1px dashed rgba(247, 208, 0, 0.35);
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  gap: 6px;
+}
+
+.click-label {
+  font-family: var(--font-accent);
+  color: var(--yellow);
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.click-sub {
+  color: var(--gray);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
 .copy-fallback {
   width: 100%;
   max-width: 440px;
@@ -726,6 +751,11 @@ a {
 
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
+}
+
+.click-to-copy:hover ~ .flip-card .flip-card-inner,
+.click-to-copy:focus-within ~ .flip-card .flip-card-inner {
+  transform: none;
 }
 
 .flip-card-front,
