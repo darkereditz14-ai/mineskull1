@@ -96,20 +96,31 @@
       if (!ip) return;
 
       let copied = false;
+      let input = document.getElementById("copy-helper-input");
+      if (!input) {
+        input = document.createElement("textarea");
+        input.id = "copy-helper-input";
+        input.setAttribute("readonly", "");
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+        input.style.pointerEvents = "none";
+        input.style.zIndex = "-1";
+        document.body.appendChild(input);
+      }
+
+      input.value = ip;
+      input.focus({ preventScroll: true });
+      input.select();
+
       try {
         if (navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(ip);
           copied = true;
         } else {
-          throw new Error("Clipboard API unavailable");
+          copied = document.execCommand("copy");
         }
       } catch (error) {
-        const input = document.createElement("input");
-        input.value = ip;
-        document.body.appendChild(input);
-        input.select();
         copied = document.execCommand("copy");
-        document.body.removeChild(input);
       }
 
       const labelButton =
@@ -123,7 +134,14 @@
           labelButton.classList.remove("copied");
         }, 1500);
       }
-      showToast(copied ? "Copied to clipboard" : "Copy failed. Press Ctrl+C");
+      const fallbackField = qs(".copy-fallback");
+      if (!copied && fallbackField) {
+        fallbackField.classList.add("is-visible");
+        fallbackField.focus({ preventScroll: true });
+        fallbackField.select();
+      }
+
+      showToast(copied ? "Copied to clipboard" : "Copy failed. IP selected.");
     });
   };
 
