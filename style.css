@@ -656,6 +656,13 @@ a {
   letter-spacing: 1px;
 }
 
+.copy-status {
+  font-size: 12px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
 .flip-card {
   width: 100%;
   min-height: 220px;
