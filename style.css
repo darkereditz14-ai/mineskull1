@@ -441,6 +441,16 @@ a {
   box-shadow: 0 0 18px rgba(247, 208, 0, 0.4);
 }
 
+.team-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--yellow);
+  box-shadow: 0 0 18px rgba(247, 208, 0, 0.35);
+  margin-bottom: 16px;
+}
+
 .status-card {
   display: flex;
   flex-wrap: wrap;
