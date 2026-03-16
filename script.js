@@ -97,6 +97,12 @@
 
       let copied = false;
       const secureClipboard = window.isSecureContext && navigator.clipboard?.writeText;
+      const statusEl = qs("#copy-status");
+      if (statusEl) {
+        statusEl.textContent = secureClipboard
+          ? "Clipboard: ready"
+          : "Clipboard: blocked";
+      }
       let input = document.getElementById("copy-helper-input");
       if (!input) {
         input = document.createElement("textarea");
@@ -144,6 +150,10 @@
           fallbackInput.focus({ preventScroll: true });
           fallbackInput.select();
         }
+      }
+
+      if (statusEl) {
+        statusEl.textContent = copied ? "Clipboard: copied" : "Clipboard: blocked";
       }
 
       showToast(copied ? "Copied to clipboard" : "Copy blocked. IP selected.");
@@ -290,5 +300,13 @@
     requestAnimationFrame(() => {
       document.body.classList.add("page-loaded");
     });
+
+    const statusEl = qs("#copy-status");
+    if (statusEl) {
+      statusEl.textContent =
+        window.isSecureContext && navigator.clipboard?.writeText
+          ? "Clipboard: ready"
+          : "Clipboard: blocked";
+    }
   });
 })();
