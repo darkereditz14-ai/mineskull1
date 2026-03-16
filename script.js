@@ -96,6 +96,7 @@
       if (!ip) return;
 
       let copied = false;
+      const secureClipboard = window.isSecureContext && navigator.clipboard?.writeText;
       let input = document.getElementById("copy-helper-input");
       if (!input) {
         input = document.createElement("textarea");
@@ -113,7 +114,7 @@
       input.select();
 
       try {
-        if (navigator.clipboard?.writeText) {
+        if (secureClipboard) {
           await navigator.clipboard.writeText(ip);
           copied = true;
         } else {
@@ -134,14 +135,18 @@
           labelButton.classList.remove("copied");
         }, 1500);
       }
-      const fallbackField = qs(".copy-fallback");
+      const fallbackField = trigger.closest(".join-copy")?.querySelector(".copy-fallback");
       if (!copied && fallbackField) {
         fallbackField.classList.add("is-visible");
-        fallbackField.focus({ preventScroll: true });
-        fallbackField.select();
+        const fallbackInput = fallbackField.querySelector(".copy-fallback-input");
+        if (fallbackInput) {
+          fallbackInput.value = ip;
+          fallbackInput.focus({ preventScroll: true });
+          fallbackInput.select();
+        }
       }
 
-      showToast(copied ? "Copied to clipboard" : "Copy failed. IP selected.");
+      showToast(copied ? "Copied to clipboard" : "Copy blocked. IP selected.");
     });
   };
 
