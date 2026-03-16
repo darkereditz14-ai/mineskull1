@@ -172,6 +172,14 @@
 
       showToast(copied ? "Copied to clipboard" : "Copy blocked. IP selected.");
     });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const focused = document.activeElement?.closest?.("[data-copy-ip]");
+      if (!focused) return;
+      event.preventDefault();
+      focused.click();
+    });
   };
 
   const showToast = (message) => {
