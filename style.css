@@ -753,9 +753,8 @@ a {
   transform: rotateY(180deg);
 }
 
-.click-to-copy:hover ~ .flip-card .flip-card-inner,
-.click-to-copy:focus-within ~ .flip-card .flip-card-inner {
-  transform: none;
+.flip-card.no-flip .flip-card-inner {
+  transform: none !important;
 }
 
 .flip-card-front,
