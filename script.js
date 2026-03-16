@@ -4,17 +4,10 @@
   const qs = (selector, scope = document) => scope.querySelector(selector);
   const qsa = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
-  const setTextAll = (selector, value) => {
-    qsa(selector).forEach((el) => {
-      el.textContent = value;
-    });
-  };
-
-  const setHrefAll = (selector, value) => {
-    qsa(selector).forEach((el) => {
-      el.setAttribute("href", value);
-    });
-  };
+  const getServerIP = () =>
+    document.body.dataset.serverIp ||
+    qs("[data-server-ip]")?.textContent?.trim() ||
+    "";
 
   const initNavActive = () => {
     const page = document.body.getAttribute("data-page");
@@ -27,7 +20,7 @@
   };
 
   const updateTitle = () => {
-    if (!window.CONFIG) return;
+    const serverName = qs("[data-server-name]")?.textContent?.trim() || "MineSkull";
     const page = document.body.getAttribute("data-page");
     const labels = {
       home: "Home",
@@ -36,82 +29,8 @@
       join: "Join"
     };
     if (page && labels[page]) {
-      document.title = `${window.CONFIG.serverName} | ${labels[page]}`;
+      document.title = `${serverName} | ${labels[page]}`;
     }
-  };
-
-  const initConfigBindings = () => {
-    if (!window.CONFIG) return;
-    const { serverName, serverIP, version, discord, copyright, logoImage, favicon } =
-      window.CONFIG;
-    setTextAll("[data-server-name]", serverName);
-    setTextAll("[data-server-ip]", serverIP);
-    setTextAll("[data-server-version]", version);
-    setHrefAll("[data-discord-url]", discord);
-    if (copyright) {
-      setTextAll("[data-copyright]", copyright);
-    }
-    if (logoImage) {
-      qsa("[data-logo-image]").forEach((img) => {
-        img.src = logoImage;
-        img.alt = `${serverName} logo`;
-        img.classList.add("is-visible");
-      });
-    }
-    if (favicon) {
-      const icon = qs("[data-favicon]");
-      if (icon) {
-        icon.setAttribute("href", favicon);
-      }
-    }
-  };
-
-  const initDiscordLinks = () => {
-    if (!window.CONFIG?.discord) return;
-    qsa("[data-discord-url]").forEach((link) => {
-      link.setAttribute("href", window.CONFIG.discord);
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener noreferrer");
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        window.open(window.CONFIG.discord, "_blank", "noopener");
-      });
-    });
-  };
-
-  const buildFeatures = () => {
-    const grid = qs("#features-grid");
-    if (!grid || !window.CONFIG) return;
-    grid.innerHTML = "";
-    window.CONFIG.features.forEach((feature) => {
-      const card = document.createElement("div");
-      card.className = "card reveal";
-      card.innerHTML = `
-        <h3 class="card-title"></h3>
-        <p class="card-text"></p>
-      `;
-      card.querySelector(".card-title").textContent = feature.title;
-      card.querySelector(".card-text").textContent = feature.description;
-      grid.appendChild(card);
-    });
-  };
-
-  const buildTeam = () => {
-    const grid = qs("#team-grid");
-    if (!grid || !window.CONFIG) return;
-    grid.innerHTML = "";
-    window.CONFIG.team.forEach((member) => {
-      const card = document.createElement("div");
-      card.className = "card reveal";
-      card.innerHTML = `
-        <div class="avatar-ring"></div>
-        <h3 class="card-title"></h3>
-        <p class="card-subtitle"></p>
-      `;
-      card.querySelector(".card-title").textContent = member.name;
-      card.querySelector(".card-subtitle").textContent = member.role;
-      grid.appendChild(card);
-    });
   };
 
   const initCopyButtons = () => {
@@ -119,17 +38,12 @@
       const trigger = event.target.closest("[data-copy-ip]");
       if (!trigger) return;
 
-      const ip = window.CONFIG?.serverIP || "";
+      const ip = getServerIP();
       if (!ip) return;
 
       let copied = false;
       const secureClipboard = window.isSecureContext && navigator.clipboard?.writeText;
-      const statusEl = qs("#copy-status");
-      if (statusEl) {
-        statusEl.textContent = secureClipboard
-          ? "Clipboard: ready"
-          : "Clipboard: blocked";
-      }
+
       let input = document.getElementById("copy-helper-input");
       if (!input) {
         input = document.createElement("textarea");
@@ -157,17 +71,6 @@
         copied = document.execCommand("copy");
       }
 
-      const labelButton =
-        trigger.tagName === "BUTTON" ? trigger : trigger.querySelector("button");
-      if (labelButton) {
-        const originalText = labelButton.textContent;
-        labelButton.textContent = copied ? "Copied!" : "Copy Failed";
-        labelButton.classList.add("copied");
-        setTimeout(() => {
-          labelButton.textContent = originalText;
-          labelButton.classList.remove("copied");
-        }, 1500);
-      }
       const fallbackField = trigger.closest(".join-copy")?.querySelector(".copy-fallback");
       if (!copied && fallbackField) {
         fallbackField.classList.add("is-visible");
@@ -177,10 +80,6 @@
           fallbackInput.focus({ preventScroll: true });
           fallbackInput.select();
         }
-      }
-
-      if (statusEl) {
-        statusEl.textContent = copied ? "Clipboard: copied" : "Clipboard: blocked";
       }
 
       showToast(copied ? "Copied to clipboard" : "Copy blocked. IP selected.");
@@ -234,7 +133,7 @@
 
   const loadServerStatus = async () => {
     const container = qs("#server-status");
-    if (!container || !window.CONFIG) return;
+    if (!container) return;
 
     const statusText = qs("#status-text", container);
     const playerText = qs("#status-players", container);
@@ -245,7 +144,7 @@
 
     try {
       const response = await fetch(
-        `https://api.mcsrvstat.us/2/${encodeURIComponent(window.CONFIG.serverIP)}`
+        `https://api.mcsrvstat.us/2/${encodeURIComponent(getServerIP())}`
       );
       const data = await response.json();
       const online = Boolean(data?.online);
@@ -334,10 +233,6 @@
   document.addEventListener("DOMContentLoaded", () => {
     initNavActive();
     updateTitle();
-    initConfigBindings();
-    initDiscordLinks();
-    buildFeatures();
-    buildTeam();
     initCopyButtons();
     loadServerStatus();
     initAutoRevealTargets();
@@ -348,13 +243,5 @@
     requestAnimationFrame(() => {
       document.body.classList.add("page-loaded");
     });
-
-    const statusEl = qs("#copy-status");
-    if (statusEl) {
-      statusEl.textContent =
-        window.isSecureContext && navigator.clipboard?.writeText
-          ? "Clipboard: ready"
-          : "Clipboard: blocked";
-    }
   });
 })();
