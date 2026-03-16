@@ -111,7 +111,45 @@
           button.textContent = originalText;
           button.classList.remove("copied");
         }, 1500);
+        showToast("Copied to clipboard");
       });
+    });
+  };
+
+  const showToast = (message) => {
+    let toast = qs("#toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "toast";
+      toast.className = "toast";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toast._hideTimer);
+    toast._hideTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 1600);
+  };
+
+  const initCookieBanner = () => {
+    const key = "ms_cookie_consent";
+    if (localStorage.getItem(key) === "accepted") return;
+
+    const banner = document.createElement("div");
+    banner.className = "cookie-banner";
+    banner.innerHTML = `
+      <div class="cookie-text">We use cookies to improve your experience. By continuing, you agree to our cookie policy.</div>
+      <div class="cookie-actions">
+        <button class="btn btn-primary" type="button">Accept</button>
+      </div>
+    `;
+    document.body.appendChild(banner);
+
+    const acceptButton = banner.querySelector("button");
+    acceptButton.addEventListener("click", () => {
+      localStorage.setItem(key, "accepted");
+      banner.remove();
     });
   };
 
@@ -214,6 +252,7 @@
     initAutoRevealTargets();
     initPageLinks();
     initReveal();
+    initCookieBanner();
     requestAnimationFrame(() => {
       document.body.classList.add("page-loaded");
     });
