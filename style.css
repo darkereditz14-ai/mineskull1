@@ -185,10 +185,6 @@ a {
   width: 34px;
   height: 34px;
   object-fit: contain;
-  display: none;
-}
-
-.logo-img.is-visible {
   display: block;
 }
 
